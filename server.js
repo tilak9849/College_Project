@@ -1,22 +1,26 @@
 const express = require('express');
-const app = express();
 const colors = require('colors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const connectDb = require('./config/db');
 
+// dotenv configuration
 
+dotenv.config();
 
+// mongodb configuration
+connectDb();
+
+// rest object
+const app = express();
+
+// middlewares
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/',(req,res,next)=>{
- res.status(200).send({
-    messege:" server running",
- });
-});
 
-
-
+// routes
+app.use('/api/user', require('./routes/userRoutes'))
 
 
 
